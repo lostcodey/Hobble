@@ -1,0 +1,4 @@
+node_modules/
+.env
+**/profile_pic/*
+!**/profile_pic/.gitkeep
