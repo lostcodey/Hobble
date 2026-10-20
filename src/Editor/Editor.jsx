@@ -4,6 +4,10 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+
+// Change your component declaration:
+
 import Toolbar from './Toolbar';
 
 const theme = {
@@ -19,7 +23,7 @@ function onError(error) {
   console.error(error);
 }
 
-export default function Editor() {
+export default function Editor({ onChange }) {
   const initialConfig = {
     namespace: 'MyEditor',
     theme,
@@ -79,6 +83,11 @@ export default function Editor() {
       </div>
 
       <HistoryPlugin />
+      <OnChangePlugin
+        onChange={(editorState) => {
+          onChange?.(editorState.toJSON());
+        }}
+      />
 
     </LexicalComposer>
   );
