@@ -12,6 +12,7 @@ import { profile } from './controllers/profile.js';
 import { profile_check } from './controllers/profile_check.js';
 import { blog_add } from './controllers/blog_add.js';
 import { all_blogs } from './controllers/all_blogs.js';
+import { draft_blogs } from './controllers/draft_blogs.js';
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
@@ -34,6 +35,7 @@ app.post('/api/profile',upload.single('image'),authenticate,profile);
 app.post('/api/profile_check',authenticate,profile_check)
 app.post('/api/blog_add',authenticate,blog_add)   
 app.post('/api/all_blogs',authenticate,all_blogs)   
+app.post('/api/draft_blogs',authenticate,draft_blogs)   
 app.post('/api/logout',logout)
 mongoose.connect(process.env.connection_string)
  

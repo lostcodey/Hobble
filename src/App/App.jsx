@@ -5,6 +5,7 @@ import Sidebar from './Sidebar';
 import Profile from './Profile';
 import Blog_add from './Blog_add';
 import All_blogs from './All_blogs';
+import Draft_blogs from './Draft_blogs';
 
 function App() {
     const [current,current_change] = useState();
@@ -21,6 +22,7 @@ function App() {
                     {current === 'Profile' && <Profile />}
                     {current === 'NewPost' && <Blog_add/>}
                     {current === 'AllPost' && <All_blogs/>}
+                    {current === 'Drafts' && <Draft_blogs/>}
                 </main>
             </div>
 
