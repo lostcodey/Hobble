@@ -23,11 +23,12 @@ function onError(error) {
   console.error(error);
 }
 
-export default function Editor({ onChange }) {
+export default function Editor({ onChange,init_content }) {
   const initialConfig = {
     namespace: 'MyEditor',
     theme,
     onError,
+    editorState: (init_content?JSON.stringify(init_content):undefined),
   };
 
   return (

@@ -13,6 +13,8 @@ import { profile_check } from './controllers/profile_check.js';
 import { blog_add } from './controllers/blog_add.js';
 import { all_blogs } from './controllers/all_blogs.js';
 import { draft_blogs } from './controllers/draft_blogs.js';
+import { edit_fetch } from './controllers/edit_fetch.js';
+import { edit_blogs } from './controllers/edit_blogs.js';
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
@@ -36,7 +38,11 @@ app.post('/api/profile_check',authenticate,profile_check)
 app.post('/api/blog_add',authenticate,blog_add)   
 app.post('/api/all_blogs',authenticate,all_blogs)   
 app.post('/api/draft_blogs',authenticate,draft_blogs)   
+app.post('/api/edit_fetch',authenticate,edit_fetch)   
+app.post('/api/edit_blogs',authenticate,edit_blogs)   
+
 app.post('/api/logout',logout)
+
 mongoose.connect(process.env.connection_string)
  
 app.listen(5000,()=>{

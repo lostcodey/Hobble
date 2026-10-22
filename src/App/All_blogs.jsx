@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useCustomFetch } from '../customfetch';
 
-function All_blogs() {
+function All_blogs({current_change}) {
     const customfetch = useCustomFetch();
     const [posts, post_change] = useState(null);
 

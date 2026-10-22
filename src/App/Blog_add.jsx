@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Editor from '../Editor/Editor';
 import { useCustomFetch } from '../customfetch';
 
-function Blog_add() {
+function Blog_add({current_change}) {
   const customfetch = useCustomFetch();
   const [title, setTitle] = useState('');
   const [content, content_change] = useState(null);

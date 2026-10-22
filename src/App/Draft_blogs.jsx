@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useCustomFetch } from '../customfetch';
 
-function Draft_blogs() {
+function Draft_blogs({current_change}) {
     const customfetch = useCustomFetch();
     const [drafts, drafts_change] = useState(null);
 
@@ -12,10 +12,17 @@ function Draft_blogs() {
             });
             drafts_change(res);
             console.log(res.length);
-            console.log(res);
+            // console.log(res);
         }
         post_fetch();
     }, []);
+
+
+    const edit_post = async (id) => {
+        localStorage.setItem('Draft',id);
+        console.log(localStorage.getItem('Draft'))
+        current_change('EditBlog');
+    }
 
     return (
         <div className="min-h-full bg-slate-950 p-6 text-slate-100 md:p-8">
@@ -117,7 +124,7 @@ function Draft_blogs() {
 
                                         <button
                                             type="button"
-                                            onClick={() => console.log('Edit draft:', post)}
+                                            onClick={() => edit_post(post._id)}
                                             className="inline-flex items-center gap-2 rounded-lg bg-amber-500/10 px-3 py-2 text-sm font-medium text-amber-300 transition hover:bg-amber-500 hover:text-slate-950"
                                         >
                                             Continue writing
