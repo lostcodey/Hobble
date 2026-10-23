@@ -20,6 +20,7 @@ function Blog_add({current_change}) {
         status: status,
       }),
     });
+    current_change('ViewBlog')
   }
 
   return (

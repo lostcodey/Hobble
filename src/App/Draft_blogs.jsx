@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useCustomFetch } from '../customfetch';
 
-function Draft_blogs({current_change}) {
+function Draft_blogs({current_change,edit_change}) {
     const customfetch = useCustomFetch();
     const [drafts, drafts_change] = useState(null);
 
@@ -19,8 +19,7 @@ function Draft_blogs({current_change}) {
 
 
     const edit_post = async (id) => {
-        localStorage.setItem('Draft',id);
-        console.log(localStorage.getItem('Draft'))
+        edit_change(id)
         current_change('EditBlog');
     }
 
@@ -87,9 +86,7 @@ function Draft_blogs({current_change}) {
                                 <div className="flex flex-1 flex-col p-5">
                                     {/* Status and date */}
                                     <div className="mb-5 flex items-center justify-between gap-3">
-                                        <span className="rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-1 text-xs font-medium text-amber-300">
-                                            ● Draft
-                                        </span>
+
 
                                         <span className="text-xs text-slate-500">
                                             {post.updatedAt

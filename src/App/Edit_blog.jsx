@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useCustomFetch } from '../customfetch';
 import Editor from '../Editor/Editor';
 
-function Edit_blog({ current_change }) {
+function Edit_blog({ current_change , edit }) {
     const customfetch = useCustomFetch();
 
     const [blog, blog_change] = useState(null);
@@ -13,9 +13,10 @@ function Edit_blog({ current_change }) {
     useEffect(() => {
         async function post_fetch() {
             try {
-                const item = localStorage.getItem('Draft');
+                const item = edit;
 
                 if (!item) {
+                    console.log('not found')
                     current_change('Drafts');
                     return;
                 }

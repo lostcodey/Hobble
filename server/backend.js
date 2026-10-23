@@ -15,6 +15,8 @@ import { all_blogs } from './controllers/all_blogs.js';
 import { draft_blogs } from './controllers/draft_blogs.js';
 import { edit_fetch } from './controllers/edit_fetch.js';
 import { edit_blogs } from './controllers/edit_blogs.js';
+import { view_fetch } from './controllers/view_fetch.js';
+import { all_posts } from './controllers/all_posts.js';
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
@@ -40,6 +42,8 @@ app.post('/api/all_blogs',authenticate,all_blogs)
 app.post('/api/draft_blogs',authenticate,draft_blogs)   
 app.post('/api/edit_fetch',authenticate,edit_fetch)   
 app.post('/api/edit_blogs',authenticate,edit_blogs)   
+app.post('/api/view_fetch',authenticate,view_fetch)   
+app.post('/api/all_posts',authenticate,all_posts)   
 
 app.post('/api/logout',logout)
 

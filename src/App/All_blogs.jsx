@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useCustomFetch } from '../customfetch';
 
-function All_blogs({current_change}) {
+function All_blogs({current_change,view_change}) {
     const customfetch = useCustomFetch();
     const [posts, post_change] = useState(null);
 
@@ -17,11 +17,17 @@ function All_blogs({current_change}) {
         post_fetch();
     }, []);
 
+
+    const view_post = async(id) =>{
+        console.log(id)
+        view_change(id);
+        current_change('ViewBlog');
+    }
     return (
         <div className="min-h-full bg-slate-950 p-6 text-slate-100 md:p-8">
             <div className="mx-auto max-w-7xl">
 
-                {/* Header */}
+                {/* Header
                 <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight">
@@ -35,7 +41,7 @@ function All_blogs({current_change}) {
                     <span className="w-fit rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-300">
                         {posts ? posts.length : 0} published posts
                     </span>
-                </div>
+                </div> */}
 
                 {/* Loading state */}
                 {!posts && (
@@ -105,9 +111,6 @@ function All_blogs({current_change}) {
                                             </p>
                                         </div>
 
-                                        <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-400">
-                                            Published
-                                        </span>
                                     </div>
 
                                     {/* Title */}
@@ -130,7 +133,7 @@ function All_blogs({current_change}) {
 
                                         <button
                                             type="button"
-                                            onClick={() => console.log('Selected post:', post)}
+                                            onClick={() => {view_post(post._id)}}
                                             className="inline-flex items-center gap-2 rounded-lg bg-indigo-600/10 px-3 py-2 text-sm font-medium text-indigo-300 transition hover:bg-indigo-600 hover:text-white"
                                         >
                                             View post
