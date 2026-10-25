@@ -17,6 +17,8 @@ import { edit_fetch } from './controllers/edit_fetch.js';
 import { edit_blogs } from './controllers/edit_blogs.js';
 import { view_fetch } from './controllers/view_fetch.js';
 import { all_posts } from './controllers/all_posts.js';
+import { user_fetch } from './controllers/user_fetch.js';
+import { delete_blog } from './controllers/delete_blog.js';
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
@@ -44,6 +46,8 @@ app.post('/api/edit_fetch',authenticate,edit_fetch)
 app.post('/api/edit_blogs',authenticate,edit_blogs)   
 app.post('/api/view_fetch',authenticate,view_fetch)   
 app.post('/api/all_posts',authenticate,all_posts)   
+app.post('/api/user_fetch',authenticate,user_fetch)   
+app.post('/api/delete_blog',authenticate,delete_blog)   
 
 app.post('/api/logout',logout)
 

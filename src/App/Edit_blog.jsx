@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useCustomFetch } from '../customfetch';
 import Editor from '../Editor/Editor';
 
-function Edit_blog({ current_change , edit }) {
+function Edit_blog({ current_change, edit }) {
     const customfetch = useCustomFetch();
 
     const [blog, blog_change] = useState(null);
@@ -62,22 +62,69 @@ function Edit_blog({ current_change , edit }) {
             return;
         }
 
-        const body = JSON.stringify({
-            id: blog._id,
-            title,
-            content: updatedContent,
-            status:status, // false = draft, true = published
-        });
+        setSaving(true);
 
-        const res = await customfetch('http://localhost:5000/api/edit_blogs', {
-            method: "POST",
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: body,
-        })
+        try {
+            const res = await customfetch(
+                'http://localhost:5000/api/edit_blogs',
+                {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: blog._id,
+                        title,
+                        content: updatedContent,
+                        status,
+                    }),
+                }
+            );
 
-       
+            if (res?.message === 'Blog updated successfully') {
+                alert(status ? 'Post published successfully!' : 'Draft saved successfully!');
+                current_change('Drafts');
+            } else {
+                alert(res?.message || 'Failed to save the post.');
+            }
+        } catch (error) {
+            console.error('Failed to save post:', error);
+            alert('Something went wrong while saving.');
+        } finally {
+            setSaving(false);
+        }
+    }
+
+    async function handleDelete() {
+        const confirmed = window.confirm(
+            `Are you sure you want to delete "${blog.Titile}"? This action cannot be undone.`
+        );
+
+        if (!confirmed) return;
+
+        setSaving(true);
+
+        try {
+            const res = await customfetch(
+                'http://localhost:5000/api/delete_blog',
+                {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: blog._id }),
+                }
+            );
+
+            if (res) {
+                current_change('AllPost');
+            }
+        } catch (error) {
+            console.error('Failed to delete post:', error);
+            alert('Failed to delete the post. Please try again.');
+        } finally {
+            setSaving(false);
+        }
     }
 
     if (!blog) {
@@ -172,6 +219,15 @@ function Edit_blog({ current_change , edit }) {
                         </p>
 
                         <div className="flex flex-col-reverse gap-3 sm:flex-row">
+                            <button
+                                type="button"
+                                disabled={saving}
+                                onClick={handleDelete}
+                                className="rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-3 text-sm font-semibold text-red-400 transition hover:border-red-500/60 hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+                            >
+                                Delete Post
+                            </button>
+
                             <button
                                 type="button"
                                 disabled={saving}

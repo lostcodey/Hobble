@@ -6,6 +6,7 @@ function Blog_add({current_change}) {
   const customfetch = useCustomFetch();
   const [title, setTitle] = useState('');
   const [content, content_change] = useState(null);
+  const [editorKey, setEditorKey] = useState(0);
 
 
   const handle_post = async (status) => {
@@ -76,7 +77,7 @@ function Blog_add({current_change}) {
               </span>
             </div>
 
-            <Editor onChange={content_change} />
+            <Editor key={editorKey} onChange={content_change} />
           </section>
 
 
@@ -84,8 +85,8 @@ function Blog_add({current_change}) {
             <button
               type="button"
               onClick={() => {
-                setTitle('');
-                content_change(null);
+                setEditorKey(prev=>prev+1);
+                
               }}
               className="rounded-lg border border-slate-700 px-5 py-3 text-sm font-medium text-slate-300 transition hover:bg-slate-900 hover:text-white"
             >
